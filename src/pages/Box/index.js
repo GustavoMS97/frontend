@@ -21,13 +21,12 @@ class Box extends Component {
 
   subscriteToNewFiles = () => {
     const { match } = this.props;
-    const { box } = this.state;
     const boxId = match.params.id;
     const io = socket('https://omnistack-backend-node.herokuapp.com/');
     io.emit('connectRoom', boxId);
     io.on('file', (data) => {
       this.setState({
-        box: { ...box, files: [data, ...box.files] },
+        box: { ...this.state.box, files: [data, ...this.state.box.files] },
       });
     });
   };
